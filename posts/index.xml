@@ -6,13 +6,30 @@
     <description>Recent content in Posts on tim</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 19:43:02 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Sep 2020 20:11:33 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>缓存穿透、缓存击穿、缓存雪崩</title>
+      <link>https://timliudream.github.io/posts/code/cache/</link>
+      <pubDate>Sun, 20 Sep 2020 20:11:33 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/code/cache/</guid>
+      <description>缓存穿透 如果缓存和数据库都没有查询的数据，那么每次都会去数据库查找，这种查询不存在的数据的现象称为缓存穿透
+缓存穿透带来的问题 如果每次都拿一个不存在的id去查询数据库，可能会导致数据库压力增大，数据库有可能会挂
+解决办法  缓存空值  之所以会发生穿透，是因为缓存中没有存储这些数据的key，从而每次都查询数据库 我们可以为这些key在缓存中设置对应的值为null，后面查询这个key的时候就不用查询数据库了 当然为了健壮性，还要对这些key设置过期时间，以防止数据库中真的有数据    缓存击穿 在高并发下，大量的请求同时查询同一个key时，此时这个key刚好失效，就会导致同一时间内，这些请求都会去查询数据库
+击穿带来的问题 会造成某一时刻数据库的请求量很大
+解决办法 采用锁，只有拿到锁的第一个线程去请求数据库，然后插入缓存，当然每次拿到锁的时候都要去查询一下有没有缓存
+缓存雪崩 当某一时刻发生大规模的缓存失效的情况，比如说缓存服务器宕机了
+解决办法  采用集群，减少宕机的几率 限流和降级  解决热点数据集中失效的问题 我们在设置缓存的时候，一般会给缓存设置一个失效时间，过了这个时间，缓存就失效了
+对于一些热点数据而言，当缓存失效以后会有大量的请求过来，然后打到数据库中，从而导致数据库崩溃的情况
+解决办法  设置不同的失效时间 采用加锁机制 永不失效，就是采用定时任务对快要失效的缓存进行更新缓存和失效时间  </description>
+    </item>
+    
     <item>
       <title>漏桶算法&amp;令牌桶算法</title>
-      <link>https://timliudream.github.io/posts/leaky_bucket/</link>
+      <link>https://timliudream.github.io/posts/algorithm/leaky_bucket/</link>
       <pubDate>Sun, 20 Sep 2020 19:43:02 +0800</pubDate>
       
-      <guid>https://timliudream.github.io/posts/leaky_bucket/</guid>
+      <guid>https://timliudream.github.io/posts/algorithm/leaky_bucket/</guid>
       <description>背景 每一个对外提供的API接口都是需要做流量控制的，不然会导致系统直接崩溃。很简单的例子，和保险丝的原理一样，如果用电符合超载就会烧断保险丝断掉电源以达到保护的作用。API限流的意义也是如此，如果API上的流量请求超过核定的数值我们就得对请求进行引流或者直接拒绝等操作。
 限流算法 既然要限流，就得提到限流算法了，一般有漏桶算法和令牌桶算法两种限流算法。## 背景
 每一个对外提供的API接口都是需要做流量控制的，不然会导致系统直接崩溃。很简单的例子，和保险丝的原理一样，如果用电符合超载就会烧断保险丝断掉电源以达到保护的作用。API限流的意义也是如此，如果API上的流量请求超过核定的数值我们就得对请求进行引流或者直接拒绝等操作。
@@ -30,10 +47,10 @@ Google的Guava包中的RateLimiter类就是令牌桶算法的解决方案。
     
     <item>
       <title>在Windows10系统下通过hugo搭建个人博客</title>
-      <link>https://timliudream.github.io/posts/hugo_blog/</link>
+      <link>https://timliudream.github.io/posts/hugo/hugo_blog/</link>
       <pubDate>Sun, 20 Sep 2020 18:43:30 +0800</pubDate>
       
-      <guid>https://timliudream.github.io/posts/hugo_blog/</guid>
+      <guid>https://timliudream.github.io/posts/hugo/hugo_blog/</guid>
       <description>在hugo官网上下载安装包，选择windows版本
   将hugo的安装包解压后，将解压后的路径加入到系统的环境变量PATH中便可运行hugo
   打开命令提示符窗口，进入hugo安装文件夹，然后通过hugo version便可查看安装的hugo版本，即hugo安装成功

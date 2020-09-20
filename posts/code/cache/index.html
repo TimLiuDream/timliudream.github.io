@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>缓存穿透、缓存击穿、缓存雪崩 - tim</title>
+
+<meta name="description" content="缓存穿透 如果缓存和数据库都没有查询的数据，那么每次都会去数据库查找，这种查询不存在的数据的现象称为缓存穿透
+缓存穿透带来的问题 如果每次都拿一个不存在的id去查询数据库，可能会导致数据库压力增大，数据库有可能会挂
+解决办法  缓存空值  之所以会发生穿透，是因为缓存中没有存储这些数据的key，从而每次都查询数据库 我们可以为这些key在缓存中设置对应的值为null，后面查询这个key的时候就不用查询数据库了 当然为了健壮性，还要对这些key设置过期时间，以防止数据库中真的有数据    缓存击穿 在高并发下，大量的请求同时查询同一个key时，此时这个key刚好失效，就会导致同一时间内，这些请求都会去查询数据库
+击穿带来的问题 会造成某一时刻数据库的请求量很大
+解决办法 采用锁，只有拿到锁的第一个线程去请求数据库，然后插入缓存，当然每次拿到锁的时候都要去查询一下有没有缓存
+缓存雪崩 当某一时刻发生大规模的缓存失效的情况，比如说缓存服务器宕机了
+解决办法  采用集群，减少宕机的几率 限流和降级  解决热点数据集中失效的问题 我们在设置缓存的时候，一般会给缓存设置一个失效时间，过了这个时间，缓存就失效了
+对于一些热点数据而言，当缓存失效以后会有大量的请求过来，然后打到数据库中，从而导致数据库崩溃的情况
+解决办法  设置不同的失效时间 采用加锁机制 永不失效，就是采用定时任务对快要失效的缓存进行更新缓存和失效时间  ">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/code/cache/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+</head>
+
+<body
+    class="single dark "
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
+    </nav>
+</header>
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      缓存穿透、缓存击穿、缓存雪崩
+    </h1>
+    
+    <div class="post-meta">
+      <time>September 20, 2020</time>
+      
+       . 1min read
+    </div>
+    
+  </header>
+  
+  
+  <div class="post-content"><h2 id="缓存穿透">缓存穿透</h2>
+<p>如果缓存和数据库都没有查询的数据，那么每次都会去数据库查找，这种查询不存在的数据的现象称为缓存穿透</p>
+<h3 id="缓存穿透带来的问题">缓存穿透带来的问题</h3>
+<p>如果每次都拿一个不存在的id去查询数据库，可能会导致数据库压力增大，数据库有可能会挂</p>
+<h3 id="解决办法">解决办法</h3>
+<ul>
+<li>缓存空值
+<ul>
+<li>之所以会发生穿透，是因为缓存中没有存储这些数据的key，从而每次都查询数据库</li>
+<li>我们可以为这些key在缓存中设置对应的值为null，后面查询这个key的时候就不用查询数据库了</li>
+<li>当然为了健壮性，还要对这些key设置过期时间，以防止数据库中真的有数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="缓存击穿">缓存击穿</h2>
+<p>在高并发下，大量的请求同时查询同一个key时，此时这个key刚好失效，就会导致同一时间内，这些请求都会去查询数据库</p>
+<h3 id="击穿带来的问题">击穿带来的问题</h3>
+<p>会造成某一时刻数据库的请求量很大</p>
+<h3 id="解决办法-1">解决办法</h3>
+<p>采用锁，只有拿到锁的第一个线程去请求数据库，然后插入缓存，当然每次拿到锁的时候都要去查询一下有没有缓存</p>
+<h2 id="缓存雪崩">缓存雪崩</h2>
+<p>当某一时刻发生大规模的缓存失效的情况，比如说缓存服务器宕机了</p>
+<h3 id="解决办法-2">解决办法</h3>
+<ul>
+<li>采用集群，减少宕机的几率</li>
+<li>限流和降级</li>
+</ul>
+<h2 id="解决热点数据集中失效的问题">解决热点数据集中失效的问题</h2>
+<p>我们在设置缓存的时候，一般会给缓存设置一个失效时间，过了这个时间，缓存就失效了</p>
+<p>对于一些热点数据而言，当缓存失效以后会有大量的请求过来，然后打到数据库中，从而导致数据库崩溃的情况</p>
+<h3 id="解决办法-3">解决办法</h3>
+<ul>
+<li>设置不同的失效时间</li>
+<li>采用加锁机制</li>
+<li>永不失效，就是采用定时任务对快要失效的缓存进行更新缓存和失效时间</li>
+</ul>
+</div>
+  <footer class="post-footer">
+    
+  </footer>
+</article>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io/">tim</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>
