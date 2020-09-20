@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>在Windows10系统下通过hugo搭建个人博客 - 渣渣程序员</title>
+
+<meta name="description" content="在hugo官网上下载安装包，选择windows版本
+  将hugo的安装包解压后，将解压后的路径加入到系统的环境变量PATH中便可运行hugo
+  打开命令提示符窗口，进入hugo安装文件夹，然后通过hugo version便可查看安装的hugo版本，即hugo安装成功
+  通过hugo新建一个文件夹来存放我们之后要放的博客资料，此处在E盘的hugo文件中来新建myblog文件来存放博客资料;进入E:\hugo目录，键入hugo new site myblog来创建myblog文件，点击回车   下载一个博客主题，选择一个自己喜欢的主题点击进入，然后找到如下代码部分
+  假设我选择了noteworthy这个主题，只需要在myblog下执行以下命令即可
+  git clone https://github.com/kimcc/hugo-theme-noteworthy.git themes/noteworthy 在本地启动个人博客：在myblog根目录下键入hugo server -t noteworthy &ndash;buildDrafts：(其中noteworthy为下载的主题名)  hugo server -t noteworthy --buildDrafts 当出现以上提示，则证明本地启动成功。可以在浏览器中查看http://localhost:1313/，看站点是否起来">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/hugo_blog/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+</head>
+
+<body
+    class="single"
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <h1 class="logo"><a href="https://timliudream.github.io">渣渣程序员</a></h1>
+    </nav>
+</header>
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      在Windows10系统下通过hugo搭建个人博客<div class="entry-isdraft"><sup>&nbsp;&nbsp;[draft]</sup></div>
+    </h1>
+    
+    <div class="post-meta">
+      <time>September 20, 2020</time>
+      
+      
+    </div>
+    
+  </header>
+  
+  
+  <div class="post-content"><ol>
+<li>
+<p>在<a href="https://github.com/gohugoio/hugo/releases">hugo</a>官网上下载安装包，选择windows版本</p>
+</li>
+<li>
+<p>将hugo的安装包解压后，将解压后的路径加入到系统的环境变量PATH中便可运行hugo</p>
+</li>
+<li>
+<p>打开命令提示符窗口，进入hugo安装文件夹，然后通过hugo version便可查看安装的hugo版本，即hugo安装成功</p>
+</li>
+</ol>
+<p><img src="https://ae05.alicdn.com/kf/H3a9de6c626624e9f830742b918c4f188i.png" alt="微信截图_20200920182233.png"></p>
+<ol start="4">
+<li>通过hugo新建一个文件夹来存放我们之后要放的博客资料，此处在E盘的hugo文件中来新建myblog文件来存放博客资料;进入E:\hugo目录，键入hugo new site myblog来创建myblog文件，点击回车</li>
+</ol>
+<p><img src="https://ae01.alicdn.com/kf/Hb2711508adc34072bd34a49c4cec4991j.png" alt="微信截图_20200920182429.png"></p>
+<ol start="5">
+<li>
+<p>下载一个<a href="https://hugothemesfree.com/">博客主题</a>，选择一个自己喜欢的主题点击进入，然后找到如下代码部分</p>
+</li>
+<li>
+<p>假设我选择了<a href="https://github.com/kimcc/hugo-theme-noteworthy">noteworthy</a>这个主题，只需要在myblog下执行以下命令即可</p>
+</li>
+</ol>
+<pre><code>git clone https://github.com/kimcc/hugo-theme-noteworthy.git themes/noteworthy
+</code></pre><ol start="7">
+<li>在本地启动个人博客：在myblog根目录下键入hugo server -t noteworthy &ndash;buildDrafts：(其中noteworthy为下载的主题名)</li>
+</ol>
+<pre><code>hugo server -t noteworthy --buildDrafts
+</code></pre><p><img src="https://ae05.alicdn.com/kf/Hbbe67332b63f412782efdefd07653912y.png" alt="微信截图_20200920182828.png"></p>
+<p>当出现以上提示，则证明本地启动成功。可以在浏览器中查看http://localhost:1313/，看站点是否起来</p>
+<p><img src="https://ae04.alicdn.com/kf/H54dcb54d0ed04d779c9a12541ce3e0abA.png" alt="微信截图_20200920182940.png"></p>
+</div>
+  <footer class="post-footer">
+    
+  </footer>
+</article>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io">渣渣程序员</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>

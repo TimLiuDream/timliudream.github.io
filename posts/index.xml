@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 渣渣程序员</title>
+    <link>https://timliudream.github.io/posts/</link>
+    <description>Recent content in Posts on 渣渣程序员</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 Sep 2020 18:43:30 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在Windows10系统下通过hugo搭建个人博客</title>
+      <link>https://timliudream.github.io/posts/hugo_blog/</link>
+      <pubDate>Sun, 20 Sep 2020 18:43:30 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/hugo_blog/</guid>
+      <description>在hugo官网上下载安装包，选择windows版本
+  将hugo的安装包解压后，将解压后的路径加入到系统的环境变量PATH中便可运行hugo
+  打开命令提示符窗口，进入hugo安装文件夹，然后通过hugo version便可查看安装的hugo版本，即hugo安装成功
+  通过hugo新建一个文件夹来存放我们之后要放的博客资料，此处在E盘的hugo文件中来新建myblog文件来存放博客资料;进入E:\hugo目录，键入hugo new site myblog来创建myblog文件，点击回车   下载一个博客主题，选择一个自己喜欢的主题点击进入，然后找到如下代码部分
+  假设我选择了noteworthy这个主题，只需要在myblog下执行以下命令即可
+  git clone https://github.com/kimcc/hugo-theme-noteworthy.git themes/noteworthy 在本地启动个人博客：在myblog根目录下键入hugo server -t noteworthy &amp;ndash;buildDrafts：(其中noteworthy为下载的主题名)  hugo server -t noteworthy --buildDrafts 当出现以上提示，则证明本地启动成功。可以在浏览器中查看http://localhost:1313/，看站点是否起来</description>
+    </item>
+    
+  </channel>
+</rss>
