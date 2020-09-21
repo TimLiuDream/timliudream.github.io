@@ -6,7 +6,22 @@
     <description>Recent content on tim</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 20:11:33 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Sep 2020 21:31:59 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang中的iota用法</title>
+      <link>https://timliudream.github.io/posts/golang/iota/</link>
+      <pubDate>Mon, 21 Sep 2020 21:31:59 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/golang/iota/</guid>
+      <description>有些概念有名字，并且有时候我们关注这些名字，甚至（特别）是在我们代码中。
+const ( CCVisa = &amp;#34;Visa&amp;#34; CCMasterCard = &amp;#34;MasterCard&amp;#34; CCAmericanExpress = &amp;#34;American Express&amp;#34; ) 在其他时候，我们仅仅关注能把一个东西与其他的做区分。有些时候，有些时候一件事没有本质上的意义。比如，我们在一个数据库表中存储产品，我们可能不想以 string 存储他们的分类。我们不关注这个分类是怎样命名的，此外，该名字在市场上一直在变化。
+我们仅仅关注它们是怎么彼此区分的。
+const ( CategoryBooks = 0 CategoryHealth = 1 CategoryClothing = 2 ) 使用 0, 1, 和 2 代替，我们也可以选择 17， 43， 和 61。这些值是任意的。
+常量是重要的，但是它们很难推断，并且难以维护。在一些语言中像 Ruby 开发者通常只是避免它们。在 Go，常量有许多微妙之处。当用好了，可以使得代码非常优雅且易维护的
+ 自增长 在 golang 中，一个方便的习惯就是使用 iota 标示符，它简化了常量用于增长数字的定义，给以上相同的值以准确的分类。
+const ( CategoryBooks = iota // 0  CategoryHealth // 1  CategoryClothing // 2 )  自定义类型 自增长常量经常包含一个自定义类型，允许你依靠编译器。</description>
+    </item>
+    
     <item>
       <title>缓存穿透、缓存击穿、缓存雪崩</title>
       <link>https://timliudream.github.io/posts/code/cache/</link>
