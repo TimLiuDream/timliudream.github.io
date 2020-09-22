@@ -6,7 +6,18 @@
     <description>Recent content in Posts on tim</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Sep 2020 21:31:59 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Sep 2020 20:52:24 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mysql中的case用法</title>
+      <link>https://timliudream.github.io/posts/mysql/case/</link>
+      <pubDate>Tue, 22 Sep 2020 20:52:24 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/mysql/case/</guid>
+      <description>最近遇到一个问题：
+   year amount number     1991 1 1.1   1991 2 1.2   1991 3 1.3   1992 1 1.1   1992 2 1.2   1992 3 1.3    把上面表格的数据查询成：
+   year m1 m2 m3     1991 1.1 1.2 1.3   1992 2.1 2.2 2.3    看到这样的需求，首先想到的是用case去统计以及 用group by来分组</description>
+    </item>
+    
     <item>
       <title>golang中的iota用法</title>
       <link>https://timliudream.github.io/posts/golang/iota/</link>
