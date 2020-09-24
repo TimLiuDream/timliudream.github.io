@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>golang的一些基础数据类型转换 - tim</title>
+
+<meta name="description" content="int &ndash; string  //string TO int value_int,err:=strconv.Atoi(string) //int TO string str:=strconv.Itoa(value_int) int64 &ndash; string  //string TO int64 value_int64, err := strconv.ParseInt(string, 10, 64) //int64 TO string,需注意下面转换规定 //FormatInt returns the string representation of i in the given base, for 2 &lt;= base &lt;= 36. //The result uses the lower-case letters &#39;a&#39; to &#39;z&#39; for digit values &gt;= 10 str:=strconv.FormatInt(value_int64,10)//FormatInt第二个参数表示进制，10表示十进制。 float &ndash; string  //float TO string v := 3.">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/golang/convert/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+</head>
+
+<body
+    class="single dark "
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
+    </nav>
+</header>
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      golang的一些基础数据类型转换
+    </h1>
+    
+    <div class="post-meta">
+      <time>September 24, 2020</time>
+      
+       . 1min read
+    </div>
+    
+  </header>
+  
+  
+  <div class="post-content"><ol>
+<li>int &ndash; string</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//string TO int
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">value_int</span>,<span style="color:#a6e22e">err</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#66d9ef">string</span>)
+<span style="color:#75715e">//int TO string
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">value_int</span>)
+</code></pre></div><ol start="2">
+<li>int64 &ndash; string</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//string TO int64
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">value_int64</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseInt</span>(<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">64</span>)
+<span style="color:#75715e">//int64 TO string,需注意下面转换规定
+</span><span style="color:#75715e">//FormatInt returns the string representation of i in the given base, for 2 &lt;= base &lt;= 36.
+</span><span style="color:#75715e">//The result uses the lower-case letters &#39;a&#39; to &#39;z&#39; for digit values &gt;= 10
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatInt</span>(<span style="color:#a6e22e">value_int64</span>,<span style="color:#ae81ff">10</span>)<span style="color:#75715e">//FormatInt第二个参数表示进制，10表示十进制。
+</span></code></pre></div><ol start="3">
+<li>float &ndash; string</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//float TO string
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">3.1415926535</span>
+<span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatFloat</span>(<span style="color:#a6e22e">v</span>, <span style="color:#e6db74">&#39;E&#39;</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">32</span>)<span style="color:#75715e">//float32s2 := strconv.FormatFloat(v, &#39;E&#39;, -1, 64)//float64
+</span><span style="color:#75715e">//第二个参数可选&#39;f&#39;/&#39;e&#39;/&#39;E&#39;等，含义如下：
+</span><span style="color:#75715e">// &#39;b&#39; (-ddddp±ddd，二进制指数)
+</span><span style="color:#75715e">// &#39;e&#39; (-d.dddde±dd，十进制指数)
+</span><span style="color:#75715e">// &#39;E&#39; (-d.ddddE±dd，十进制指数)
+</span><span style="color:#75715e">// &#39;f&#39; (-ddd.dddd，没有指数)
+</span><span style="color:#75715e">// &#39;g&#39; (&#39;e&#39;:大指数，&#39;f&#39;:其它情况)
+</span><span style="color:#75715e">// &#39;G&#39; (&#39;E&#39;:大指数，&#39;f&#39;:其它情况)
+</span><span style="color:#75715e"></span> 
+<span style="color:#75715e">//string TO float
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;3.1415926535&#34;</span>
+<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseFloat</span>(<span style="color:#a6e22e">v</span>, <span style="color:#ae81ff">32</span>)
+<span style="color:#a6e22e">v2</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseFloat</span>(<span style="color:#a6e22e">v</span>, <span style="color:#ae81ff">64</span>)
+</code></pre></div><ol start="4">
+<li>float &ndash; int</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//这个就很简单了
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int64</span>
+<span style="color:#a6e22e">a</span> = <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">float64</span>
+<span style="color:#a6e22e">b</span> = <span style="color:#ae81ff">2.000</span>
+ 
+<span style="color:#75715e">//a -- float64
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> float64(<span style="color:#a6e22e">a</span>)
+ 
+<span style="color:#75715e">//b -- int64
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> int64(<span style="color:#a6e22e">b</span>)
+</code></pre></div></div>
+  <footer class="post-footer">
+    
+  </footer>
+</article>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io/">tim</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>

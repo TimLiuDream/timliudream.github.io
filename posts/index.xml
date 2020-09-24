@@ -6,7 +6,27 @@
     <description>Recent content in Posts on tim</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Sep 2020 20:52:24 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Sep 2020 21:34:55 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang的一些基础数据类型转换</title>
+      <link>https://timliudream.github.io/posts/golang/convert/</link>
+      <pubDate>Thu, 24 Sep 2020 21:34:55 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/golang/convert/</guid>
+      <description>int &amp;ndash; string  //string TO int value_int,err:=strconv.Atoi(string) //int TO string str:=strconv.Itoa(value_int) int64 &amp;ndash; string  //string TO int64 value_int64, err := strconv.ParseInt(string, 10, 64) //int64 TO string,需注意下面转换规定 //FormatInt returns the string representation of i in the given base, for 2 &amp;lt;= base &amp;lt;= 36. //The result uses the lower-case letters &amp;#39;a&amp;#39; to &amp;#39;z&amp;#39; for digit values &amp;gt;= 10 str:=strconv.FormatInt(value_int64,10)//FormatInt第二个参数表示进制，10表示十进制。 float &amp;ndash; string  //float TO string v := 3.</description>
+    </item>
+    
+    <item>
+      <title>golang变量的注意</title>
+      <link>https://timliudream.github.io/posts/golang/variable/</link>
+      <pubDate>Thu, 24 Sep 2020 21:30:39 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/golang/variable/</guid>
+      <description> 方法内部的变量使用方法:  /* 定义三个变量，它们分别初始化为相应的值 vname1为v1，vname2为v2，vname3为v3 编译器会根据初始化的值自动推导出相应的类型 */ vname1, vname2, vname3 := v1, v2, v3 全局变量的使用方法：  /* 定义三个类型都是&amp;#34;type&amp;#34;的变量,并且分别初始化为相应的值 vname1为v1，vname2为v2，vname3为v3 */ var vname1, vname2, vname3 type= v1, v2, v3  :=这个符号直接取代了var和type,这种形式叫做简短声明。不过它有一个限制，那就是它只能用在函数内部；在函数外部使用则会无法编译通过，所以一般用var方式来定义全局变量。
+  _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃。在这个例子中，我们将值35赋予b，并同时丢弃34：
+  _, b := 34, 35 </description>
+    </item>
+    
     <item>
       <title>mysql中的case用法</title>
       <link>https://timliudream.github.io/posts/mysql/case/</link>

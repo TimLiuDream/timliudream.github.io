@@ -43,7 +43,7 @@
     id="top">
 <header class="header">
     <nav class="nav">
-        <h1 class="logo"><a href="https://timliudream.github.io/">tim</a></h1>
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
     </nav>
 </header>
     <main class="main">
@@ -60,6 +60,48 @@
 
 
 <article class="first-entry">
+  
+  <header class="entry-header">
+    <h2>
+      golang的一些基础数据类型转换
+    </h2>
+  </header>
+  
+  <section class="entry-content">
+    <p>int – string  //string TO int value_int,err:=strconv.Atoi(string) //int TO string str:=strconv.Itoa(value_int) int64 – string  //string TO int64 value_int64, err := strconv.ParseInt(string, 10, 64) //int64 TO string,需注意下面转换规定 //FormatInt returns the string representation of i in the given base, for 2 &lt;= base &lt;= 36. //The result uses the lower-case letters &#39;a&#39; to &#39;z&#39; for digit values &gt;= 10 str:=strconv.FormatInt(value_int64,10)//FormatInt第二个参数表示进制，10表示十进制。 float – string  //float TO string v := 3....</p>
+  </section>
+  
+  <footer class="entry-footer">
+    <time>September 24, 2020</time>
+     .
+    1min read
+    
+  </footer>
+  <a class="entry-link" aria-label="post link to golang的一些基础数据类型转换" href="https://timliudream.github.io/posts/golang/convert/"></a>
+</article>
+<article class="post-entry">
+  
+  <header class="entry-header">
+    <h2>
+      golang变量的注意
+    </h2>
+  </header>
+  
+  <section class="entry-content">
+    <p> 方法内部的变量使用方法:  /* 定义三个变量，它们分别初始化为相应的值 vname1为v1，vname2为v2，vname3为v3 编译器会根据初始化的值自动推导出相应的类型 */ vname1, vname2, vname3 := v1, v2, v3 全局变量的使用方法：  /* 定义三个类型都是&#34;type&#34;的变量,并且分别初始化为相应的值 vname1为v1，vname2为v2，vname3为v3 */ var vname1, vname2, vname3 type= v1, v2, v3  :=这个符号直接取代了var和type,这种形式叫做简短声明。不过它有一个限制，那就是它只能用在函数内部；在函数外部使用则会无法编译通过，所以一般用var方式来定义全局变量。
+  _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃。在这个例子中，我们将值35赋予b，并同时丢弃34：
+  _, b := 34, 35 ...</p>
+  </section>
+  
+  <footer class="entry-footer">
+    <time>September 24, 2020</time>
+     .
+    1min read
+    
+  </footer>
+  <a class="entry-link" aria-label="post link to golang变量的注意" href="https://timliudream.github.io/posts/golang/variable/"></a>
+</article>
+<article class="post-entry">
   
   <header class="entry-header">
     <h2>

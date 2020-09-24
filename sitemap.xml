@@ -3,17 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://timliudream.github.io/posts/mysql/case/</loc>
-    <lastmod>2020-09-22T20:52:24+08:00</lastmod>
+    <loc>https://timliudream.github.io/posts/golang/convert/</loc>
+    <lastmod>2020-09-24T21:34:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://timliudream.github.io/posts/</loc>
-    <lastmod>2020-09-22T20:52:24+08:00</lastmod>
+    <lastmod>2020-09-24T21:34:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://timliudream.github.io/</loc>
+    <lastmod>2020-09-24T21:34:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://timliudream.github.io/posts/golang/variable/</loc>
+    <lastmod>2020-09-24T21:30:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://timliudream.github.io/posts/mysql/case/</loc>
     <lastmod>2020-09-22T20:52:24+08:00</lastmod>
   </url>
   
