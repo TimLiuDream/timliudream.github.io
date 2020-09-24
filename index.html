@@ -63,6 +63,33 @@
   
   <header class="entry-header">
     <h2>
+      golang中数组与切片的区别
+    </h2>
+  </header>
+  
+  <section class="entry-content">
+    <p>初始化：数组需要指定大小，不指定也会根据初始化的自动推算出大小，不可改变
+数组：
+a := [...]int{1,2,3} a := [3]int{1,2,3} 切片：
+a:= []int{1,2,3} a := make([]int, 5) a := make([]int, 5, 10) slice的数据结构：
+go源码slice的数据结构定义：
+type slice struct { array unsafe.Pointer len int cap int } 一个指向真实 array 地址的指针 ptr ，slice 的长度 len 和容量 cap
+函数传递：数组需要明确指定大小，切片不需要。数组是值传递，切片是地址传递
+numbers2 := [...]int{1, 2, 3, 4, 5, 6} maxIndex2 := len(numbers2) - 1 for i, e := range numbers2 { if i == maxIndex2 { numbers2[0] &#43;= e } else { numbers2[i&#43;1] &#43;= e } } fmt....</p>
+  </section>
+  
+  <footer class="entry-footer">
+    <time>September 24, 2020</time>
+     .
+    2min read
+    
+  </footer>
+  <a class="entry-link" aria-label="post link to golang中数组与切片的区别" href="https://timliudream.github.io/posts/golang/array_compare_slice/"></a>
+</article>
+<article class="post-entry">
+  
+  <header class="entry-header">
+    <h2>
       golang的一些基础数据类型转换
     </h2>
   </header>

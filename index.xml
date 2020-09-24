@@ -6,7 +6,23 @@
     <description>Recent content on tim</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Sep 2020 21:34:55 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Sep 2020 21:39:11 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang中数组与切片的区别</title>
+      <link>https://timliudream.github.io/posts/golang/array_compare_slice/</link>
+      <pubDate>Thu, 24 Sep 2020 21:39:11 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/golang/array_compare_slice/</guid>
+      <description>初始化：数组需要指定大小，不指定也会根据初始化的自动推算出大小，不可改变
+数组：
+a := [...]int{1,2,3} a := [3]int{1,2,3} 切片：
+a:= []int{1,2,3} a := make([]int, 5) a := make([]int, 5, 10) slice的数据结构：
+go源码slice的数据结构定义：
+type slice struct { array unsafe.Pointer len int cap int } 一个指向真实 array 地址的指针 ptr ，slice 的长度 len 和容量 cap
+函数传递：数组需要明确指定大小，切片不需要。数组是值传递，切片是地址传递
+numbers2 := [...]int{1, 2, 3, 4, 5, 6} maxIndex2 := len(numbers2) - 1 for i, e := range numbers2 { if i == maxIndex2 { numbers2[0] += e } else { numbers2[i+1] += e } } fmt.</description>
+    </item>
+    
     <item>
       <title>golang的一些基础数据类型转换</title>
       <link>https://timliudream.github.io/posts/golang/convert/</link>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>golang中数组与切片的区别 - tim</title>
+
+<meta name="description" content="初始化：数组需要指定大小，不指定也会根据初始化的自动推算出大小，不可改变
+数组：
+a := [...]int{1,2,3} a := [3]int{1,2,3} 切片：
+a:= []int{1,2,3} a := make([]int, 5) a := make([]int, 5, 10) slice的数据结构：
+go源码slice的数据结构定义：
+type slice struct { array unsafe.Pointer len int cap int } 一个指向真实 array 地址的指针 ptr ，slice 的长度 len 和容量 cap
+函数传递：数组需要明确指定大小，切片不需要。数组是值传递，切片是地址传递
+numbers2 := [...]int{1, 2, 3, 4, 5, 6} maxIndex2 := len(numbers2) - 1 for i, e := range numbers2 { if i == maxIndex2 { numbers2[0] &#43;= e } else { numbers2[i&#43;1] &#43;= e } } fmt.">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/golang/array_compare_slice/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+</head>
+
+<body
+    class="single dark "
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
+    </nav>
+</header>
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      golang中数组与切片的区别
+    </h1>
+    
+    <div class="post-meta">
+      <time>September 24, 2020</time>
+      
+       . 2min read
+    </div>
+    
+  </header>
+  
+  
+  <div class="post-content"><p><strong>初始化：数组需要指定大小，不指定也会根据初始化的自动推算出大小，不可改变</strong></p>
+<p>数组：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>}   
+<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>}
+</code></pre></div><p>切片：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">a</span><span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>}  
+<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">5</span>) 
+<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>)
+</code></pre></div><p><strong>slice的数据结构：</strong></p>
+<p>go源码slice的数据结构定义：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">slice</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>
+    <span style="color:#a6e22e">len</span>   <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">cap</span>   <span style="color:#66d9ef">int</span>
+}
+</code></pre></div><p>一个指向真实 array 地址的指针 ptr ，slice 的长度 len 和容量 cap</p>
+<p><strong>函数传递：数组需要明确指定大小，切片不需要。数组是值传递，切片是地址传递</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">numbers2</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
+<span style="color:#a6e22e">maxIndex2</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">numbers2</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">numbers2</span> {
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">maxIndex2</span> {
+      <span style="color:#a6e22e">numbers2</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">e</span>
+   } <span style="color:#66d9ef">else</span> {
+      <span style="color:#a6e22e">numbers2</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">e</span>
+   }
+}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">numbers2</span>)
+
+<span style="color:#a6e22e">numbers3</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
+<span style="color:#a6e22e">maxIndex3</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">numbers3</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">numbers3</span> {
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">maxIndex3</span> {
+      <span style="color:#a6e22e">numbers3</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">e</span>
+   } <span style="color:#66d9ef">else</span> {
+      <span style="color:#a6e22e">numbers3</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">e</span>
+   }
+}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">numbers3</span>)
+</code></pre></div><p>输出：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">[<span style="color:#ae81ff">7</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">11</span>]
+[<span style="color:#ae81ff">22</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">15</span> <span style="color:#ae81ff">21</span>]
+</code></pre></div><p><strong>观察slice append的时候内存地址会不会改变：</strong></p>
+<p>通过一个例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+   <span style="color:#e6db74">&#34;fmt&#34;</span>
+   <span style="color:#e6db74">&#34;unsafe&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+   <span style="color:#75715e">//说先定义一个切片，只限定长度为1
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1</span>)
+
+   <span style="color:#75715e">//打印出slice的长度，容量以及内存地址
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%d cap:%d array ptr :%v \n&#34;</span>, len(<span style="color:#a6e22e">s</span>), cap(<span style="color:#a6e22e">s</span>), <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>)))
+
+   <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+      <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">i</span>)
+      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%d cap:%d array ptr :%v \n&#34;</span>, len(<span style="color:#a6e22e">s</span>), cap(<span style="color:#a6e22e">s</span>), <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>)))
+   }
+   <span style="color:#75715e">//打印出slice
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;array:&#34;</span>, <span style="color:#a6e22e">s</span>)
+}
+</code></pre></div><p>输出：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">len</span> :<span style="color:#ae81ff">1</span> <span style="color:#a6e22e">cap</span>:<span style="color:#ae81ff">1</span> <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">ptr</span> :<span style="color:#ae81ff">0xc042062080</span> 
+<span style="color:#a6e22e">len</span> :<span style="color:#ae81ff">2</span> <span style="color:#a6e22e">cap</span>:<span style="color:#ae81ff">2</span> <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">ptr</span> :<span style="color:#ae81ff">0xc0420620c0</span> 
+<span style="color:#a6e22e">len</span> :<span style="color:#ae81ff">3</span> <span style="color:#a6e22e">cap</span>:<span style="color:#ae81ff">4</span> <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">ptr</span> :<span style="color:#ae81ff">0xc0420600e0</span> 
+<span style="color:#a6e22e">len</span> :<span style="color:#ae81ff">4</span> <span style="color:#a6e22e">cap</span>:<span style="color:#ae81ff">4</span> <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">ptr</span> :<span style="color:#ae81ff">0xc0420600e0</span> 
+<span style="color:#a6e22e">len</span> :<span style="color:#ae81ff">5</span> <span style="color:#a6e22e">cap</span>:<span style="color:#ae81ff">8</span> <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">ptr</span> :<span style="color:#ae81ff">0xc0420880c0</span> 
+<span style="color:#a6e22e">len</span> :<span style="color:#ae81ff">6</span> <span style="color:#a6e22e">cap</span>:<span style="color:#ae81ff">8</span> <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">ptr</span> :<span style="color:#ae81ff">0xc0420880c0</span> 
+<span style="color:#a6e22e">array</span>: [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>]
+</code></pre></div><p>可以看出来在append的过程中，内存地址有些是一样的，有些是不一样的，容量也是如此</p>
+<p>看出来了吧，每次cap改变的时候指向array内存的指针都在变化。当在使用 append 的时候，如果 cap==len 了这个时候就会新开辟一块更大内存，然后把之前的数据复制过去。</p>
+<ol>
+<li>而cap是以乘以2的速度扩展的。这里是不是真的就是乘以2的速度呢？？</li>
+<li>最后一句输出slice元素的时候为什么会多了一个0呢？？</li>
+</ol>
+<p>对于问题2：是因为make初始化时，都会初始化成对应数据类型的原值</p>
+<p>我们再来测试一下问题1：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;unsafe&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">//说先定义一个切片，只限定长度为1
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1</span>)
+
+    <span style="color:#75715e">//打印出slice的长度，容量以及内存地址
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%d cap:%d array ptr :%v \n&#34;</span>, len(<span style="color:#a6e22e">s</span>), cap(<span style="color:#a6e22e">s</span>), <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>)))
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">1024</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">i</span>)
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%d cap:%d array ptr :%v \n&#34;</span>, len(<span style="color:#a6e22e">s</span>), cap(<span style="color:#a6e22e">s</span>), <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>)))
+    }
+    <span style="color:#75715e">//打印出slice
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;array:&#34;</span>, <span style="color:#a6e22e">s</span>)
+}
+</code></pre></div><p>输出太多了，就截一部分：</p>
+<p><img src="https://ae01.alicdn.com/kf/H53e3e5ba2ef04593ab81f1461086a13bf.png" alt="1455942-20181107201151047-786508773.png"></p>
+<p>如果按照上面得出的结论，那cap为1024的下一个应该是2048，但是却是1280</p>
+<p>实际go在append的时候放大cap是有规律的。在 cap 小于1024的情况下是每次扩大到 2 * cap ，当大于1024之后就每次扩大到 1.25 * cap 。</p>
+</div>
+  <footer class="post-footer">
+    
+  </footer>
+</article>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io/">tim</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>
