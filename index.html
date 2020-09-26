@@ -63,6 +63,78 @@
   
   <header class="entry-header">
     <h2>
+      map的使用注意事项
+    </h2>
+  </header>
+  
+  <section class="entry-content">
+    <p>map是无序的，每次打印出来的map都会不一样，它不能通过index获取，而必须通过key获取 map的长度是不固定的，也就是和slice一样，也是一种引用类型 内置的len函数同样适用于map，返回map拥有的key的数量 map的值可以很方便的修改，通过numbers[“one”]=11可以很容易的把key为one的字典值改为11 map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制  最后一点需要注意： 字典不是线程安全的，在多个线程操作字典的时候，需要使用到互斥锁
+判断map中是否含有某个key
+v,ok:=map[key] if ok{ ... } map的查询效率(时间复杂度)（需要很懂数据结构，暂不深究）
+golang中的map底层是hashMap数据结构，那么：
+ 插入:O(1)，最坏情况O(N)。 查看:O(1)，最坏情况O(N)。 删除:O(1)，最坏情况O(N)。  C&#43;&#43;中的map采用的是红黑树实现，红黑树是平衡二叉树的一种。不同操作的时间复杂度近似为:
+ 插入: O(logN) 查看:O(logN) 删除:O(logN)  map与slice的速度比较
+map的时间复杂度是O(1)，slice的时间复杂度是O(n) 是不是map就一定比slice快呢？
+var testTimeSlice=[]string{&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;zz&#34;} var testTimeMap = map[string]bool{&#34;aa&#34;: true, &#34;bb&#34;: true, &#34;cc&#34;: true, &#34;dd&#34;: true, &#34;ee&#34;: true, &#34;ff&#34;: true, &#34;zz&#34;: true} //以上为第一组查询测试数据  var testTimeSlice2=[] string{&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;i&#34;,&#34;j&#34;, &#34;l&#34;, &#34;m&#34;, &#34;n&#34;, &#34;o&#34;, &#34;p&#34;, &#34;q&#34;, &#34;k&#34;, &#34;x&#34;, &#34;y&#34;, &#34;z&#34;, &#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;, &#34;6&#34;, &#34;7&#34;, &#34;8&#34;, &#34;9&#34;, &#34;10&#34;,&#34;zz&#34;} var testTimeMap2 = map[string]bool{&#34;aa&#34;: true, &#34;bb&#34;: true, &#34;cc&#34;: true, &#34;dd&#34;: true, &#34;ee&#34;: true, &#34;ff&#34;: true, &#34;qq&#34;: true,&#34;ww&#34;: true, &#34;rr&#34;: true, &#34;tt&#34;: true, &#34;zz&#34;: true, &#34;uu&#34;: true, &#34;ii&#34;: true,&#34;oo&#34;: true, &#34;pp&#34;: true, &#34;lk&#34;: true, &#34;kl&#34;: true, &#34;jk&#34;: true, &#34;kj&#34;: true,&#34;hl&#34;: true, &#34;lh&#34;: true, &#34;fg&#34;: true, &#34;gfdd&#34;: true, &#34;df&#34;: true, &#34;fd&#34;: true, &#34;i&#34;: true, &#34;j&#34;: true, &#34;l&#34;: true, &#34;m&#34;: true, &#34;n&#34;: true, &#34;o&#34;: true, &#34;p&#34;: true, &#34;q&#34;: true, &#34;k&#34;: true, &#34;x&#34;: true, &#34;y&#34;: true, &#34;z&#34;: true, &#34;1&#34;: true, &#34;2&#34;: true, &#34;3&#34;: true, &#34;4&#34;: true, &#34;5&#34;: true, &#34;6&#34;: true, &#34;7&#34;: true, &#34;8&#34;: true, &#34;9&#34;: true, &#34;10&#34;: true} //以上为第二组查询测试数据  func testSlice(a []string) { now:=time....</p>
+  </section>
+  
+  <footer class="entry-footer">
+    <time>September 26, 2020</time>
+     .
+    2min read
+    
+  </footer>
+  <a class="entry-link" aria-label="post link to map的使用注意事项" href="https://timliudream.github.io/posts/golang/map/"></a>
+</article>
+<article class="post-entry">
+  
+  <header class="entry-header">
+    <h2>
+      golang类型判断
+    </h2>
+  </header>
+  
+  <section class="entry-content">
+    <p>_.ok:=interface{}(a).(B) 此语句用于判断对象a是否是B类型
+也可以判断对象a是否实现了B接口
+package main import &#34;fmt&#34; type Pet interface { SetName(name string) Name()string Category()string } type Dog struct { name string } func (dog *Dog) SetName(name string) { dog.name = name } func(dog Dog) Name()string{ return dog.name } func (dog Dog)Category()string{ return &#34;dog&#34; } func main() { dog:=Dog{&#34;little pig&#34;} _,ok:=interface{}(dog).(Pet) fmt.Printf(&#34;Dog implements interface Pet: %v\n&#34;, ok) _, ok = interface{}(&amp;dog).(Pet) fmt.Printf(&#34;*Dog implements interface Pet: %v\n&#34;, ok) fmt.Println() var pet Pet = &amp;dog fmt....</p>
+  </section>
+  
+  <footer class="entry-footer">
+    <time>September 26, 2020</time>
+     .
+    1min read
+    
+  </footer>
+  <a class="entry-link" aria-label="post link to golang类型判断" href="https://timliudream.github.io/posts/golang/type_judge/"></a>
+</article>
+<article class="post-entry">
+  
+  <header class="entry-header">
+    <h2>
+      golang文件相对路径问题
+    </h2>
+  </header>
+  
+  <section class="entry-content">
+    <p>目录结构：
+--simple --data --data.json --search --feed.go 具体代码：
+const dataFile = &#34;../data/data.json&#34; _, filename, _, _ := runtime.Caller(1) datapath := path.Join(path.Dir(filename), dataFile) fmt.Println(datapath) //打开文件 file, err := os.Open(datapath) if err != nil { return nil, err } //当函数return时，关闭文件 defer file.Close() 如果不要中间获取源文件的路径：
+_, filename, _, _ := runtime.Caller(1) 直接打开文件的话，是会报错的，会报找不到的错误， 所以只能先获取当前源文件的路径再join数据文件...</p>
+  </section>
+  
+  <footer class="entry-footer">
+    <time>September 26, 2020</time>
+     .
+    1min read
+    
+  </footer>
+  <a class="entry-link" aria-label="post link to golang文件相对路径问题" href="https://timliudream.github.io/posts/golang/relative_path/"></a>
+</article>
+<article class="post-entry">
+  
+  <header class="entry-header">
+    <h2>
       golang中数组与切片的区别
     </h2>
   </header>
@@ -236,31 +308,11 @@ Google的Guava包中的RateLimiter类就是令牌桶算法的解决方案。
   </footer>
   <a class="entry-link" aria-label="post link to 漏桶算法&amp;令牌桶算法" href="https://timliudream.github.io/posts/algorithm/leaky_bucket/"></a>
 </article>
-<article class="post-entry">
-  
-  <header class="entry-header">
-    <h2>
-      在Windows10系统下通过hugo搭建个人博客
-    </h2>
-  </header>
-  
-  <section class="entry-content">
-    <p>在hugo官网上下载安装包，选择windows版本
-  将hugo的安装包解压后，将解压后的路径加入到系统的环境变量PATH中便可运行hugo
-  打开命令提示符窗口，进入hugo安装文件夹，然后通过hugo version便可查看安装的hugo版本，即hugo安装成功
-  通过hugo新建一个文件夹来存放我们之后要放的博客资料，此处在E盘的hugo文件中来新建myblog文件来存放博客资料;进入E:\hugo目录，键入hugo new site myblog来创建myblog文件，点击回车   下载一个博客主题，选择一个自己喜欢的主题点击进入，然后找到如下代码部分
-  假设我选择了noteworthy这个主题，只需要在myblog下执行以下命令即可
-  git clone https://github.com/kimcc/hugo-theme-noteworthy.git themes/noteworthy 在本地启动个人博客：在myblog根目录下键入hugo server -t noteworthy –buildDrafts：(其中noteworthy为下载的主题名)  hugo server -t noteworthy --buildDrafts 当出现以上提示，则证明本地启动成功。可以在浏览器中查看http://localhost:1313/，看站点是否起来...</p>
-  </section>
-  
-  <footer class="entry-footer">
-    <time>September 20, 2020</time>
-     .
-    1min read
-    
-  </footer>
-  <a class="entry-link" aria-label="post link to 在Windows10系统下通过hugo搭建个人博客" href="https://timliudream.github.io/posts/hugo/hugo_blog/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="/page/2/">Next Page »</a>
+  </nav>
+</footer>
 
 
     </main><footer class="footer">

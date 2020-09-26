@@ -3,17 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://timliudream.github.io/posts/golang/array_compare_slice/</loc>
-    <lastmod>2020-09-24T21:39:11+08:00</lastmod>
+    <loc>https://timliudream.github.io/posts/golang/map/</loc>
+    <lastmod>2020-09-26T17:45:03+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://timliudream.github.io/posts/</loc>
-    <lastmod>2020-09-24T21:39:11+08:00</lastmod>
+    <lastmod>2020-09-26T17:45:03+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://timliudream.github.io/</loc>
+    <lastmod>2020-09-26T17:45:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://timliudream.github.io/posts/golang/type_judge/</loc>
+    <lastmod>2020-09-26T17:39:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://timliudream.github.io/posts/golang/relative_path/</loc>
+    <lastmod>2020-09-26T17:34:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://timliudream.github.io/posts/golang/array_compare_slice/</loc>
     <lastmod>2020-09-24T21:39:11+08:00</lastmod>
   </url>
   

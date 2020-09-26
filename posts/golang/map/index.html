@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>map的使用注意事项 - tim</title>
+
+<meta name="description" content="map是无序的，每次打印出来的map都会不一样，它不能通过index获取，而必须通过key获取 map的长度是不固定的，也就是和slice一样，也是一种引用类型 内置的len函数同样适用于map，返回map拥有的key的数量 map的值可以很方便的修改，通过numbers[&ldquo;one&rdquo;]=11可以很容易的把key为one的字典值改为11 map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制  最后一点需要注意： 字典不是线程安全的，在多个线程操作字典的时候，需要使用到互斥锁
+判断map中是否含有某个key
+v,ok:=map[key] if ok{ ... } map的查询效率(时间复杂度)（需要很懂数据结构，暂不深究）
+golang中的map底层是hashMap数据结构，那么：
+ 插入:O(1)，最坏情况O(N)。 查看:O(1)，最坏情况O(N)。 删除:O(1)，最坏情况O(N)。  C&#43;&#43;中的map采用的是红黑树实现，红黑树是平衡二叉树的一种。不同操作的时间复杂度近似为:
+ 插入: O(logN) 查看:O(logN) 删除:O(logN)  map与slice的速度比较
+map的时间复杂度是O(1)，slice的时间复杂度是O(n) 是不是map就一定比slice快呢？
+var testTimeSlice=[]string{&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;zz&#34;} var testTimeMap = map[string]bool{&#34;aa&#34;: true, &#34;bb&#34;: true, &#34;cc&#34;: true, &#34;dd&#34;: true, &#34;ee&#34;: true, &#34;ff&#34;: true, &#34;zz&#34;: true} //以上为第一组查询测试数据  var testTimeSlice2=[] string{&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;aa&#34;,&#34;bb&#34;,&#34;cc&#34;,&#34;dd&#34;,&#34;ee&#34;,&#34;aa&#34;,&#34;i&#34;,&#34;j&#34;, &#34;l&#34;, &#34;m&#34;, &#34;n&#34;, &#34;o&#34;, &#34;p&#34;, &#34;q&#34;, &#34;k&#34;, &#34;x&#34;, &#34;y&#34;, &#34;z&#34;, &#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;, &#34;6&#34;, &#34;7&#34;, &#34;8&#34;, &#34;9&#34;, &#34;10&#34;,&#34;zz&#34;} var testTimeMap2 = map[string]bool{&#34;aa&#34;: true, &#34;bb&#34;: true, &#34;cc&#34;: true, &#34;dd&#34;: true, &#34;ee&#34;: true, &#34;ff&#34;: true, &#34;qq&#34;: true,&#34;ww&#34;: true, &#34;rr&#34;: true, &#34;tt&#34;: true, &#34;zz&#34;: true, &#34;uu&#34;: true, &#34;ii&#34;: true,&#34;oo&#34;: true, &#34;pp&#34;: true, &#34;lk&#34;: true, &#34;kl&#34;: true, &#34;jk&#34;: true, &#34;kj&#34;: true,&#34;hl&#34;: true, &#34;lh&#34;: true, &#34;fg&#34;: true, &#34;gfdd&#34;: true, &#34;df&#34;: true, &#34;fd&#34;: true, &#34;i&#34;: true, &#34;j&#34;: true, &#34;l&#34;: true, &#34;m&#34;: true, &#34;n&#34;: true, &#34;o&#34;: true, &#34;p&#34;: true, &#34;q&#34;: true, &#34;k&#34;: true, &#34;x&#34;: true, &#34;y&#34;: true, &#34;z&#34;: true, &#34;1&#34;: true, &#34;2&#34;: true, &#34;3&#34;: true, &#34;4&#34;: true, &#34;5&#34;: true, &#34;6&#34;: true, &#34;7&#34;: true, &#34;8&#34;: true, &#34;9&#34;: true, &#34;10&#34;: true} //以上为第二组查询测试数据  func testSlice(a []string) { now:=time.">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/golang/map/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+</head>
+
+<body
+    class="single dark "
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
+    </nav>
+</header>
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      map的使用注意事项
+    </h1>
+    
+    <div class="post-meta">
+      <time>September 26, 2020</time>
+      
+       . 2min read
+    </div>
+    
+  </header>
+  
+  
+  <div class="post-content"><ul>
+<li>map是无序的，每次打印出来的map都会不一样，它不能通过index获取，而必须通过key获取</li>
+<li>map的长度是不固定的，也就是和slice一样，也是一种引用类型</li>
+<li>内置的len函数同样适用于map，返回map拥有的key的数量</li>
+<li>map的值可以很方便的修改，通过numbers[&ldquo;one&rdquo;]=11可以很容易的把key为one的字典值改为11</li>
+<li>map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制</li>
+</ul>
+<p>最后一点需要注意： 字典不是线程安全的，在多个线程操作字典的时候，需要使用到互斥锁</p>
+<p><strong>判断map中是否含有某个key</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">v</span>,<span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">key</span>]
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span>{
+    <span style="color:#f92672">...</span>
+}
+</code></pre></div><p><strong>map的查询效率(时间复杂度)（需要很懂数据结构，暂不深究）</strong></p>
+<p>golang中的map底层是hashMap数据结构，那么：</p>
+<ul>
+<li>插入:O(1)，最坏情况O(N)。</li>
+<li>查看:O(1)，最坏情况O(N)。</li>
+<li>删除:O(1)，最坏情况O(N)。</li>
+</ul>
+<p>C++中的map采用的是红黑树实现，红黑树是平衡二叉树的一种。不同操作的时间复杂度近似为:</p>
+<ul>
+<li>插入: O(logN)</li>
+<li>查看:O(logN)</li>
+<li>删除:O(logN)</li>
+</ul>
+<p><strong>map与slice的速度比较</strong></p>
+<p>map的时间复杂度是O(1)，slice的时间复杂度是O(n) 是不是map就一定比slice快呢？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testTimeSlice</span>=[]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;bb&#34;</span>,<span style="color:#e6db74">&#34;cc&#34;</span>,<span style="color:#e6db74">&#34;dd&#34;</span>,<span style="color:#e6db74">&#34;ee&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;zz&#34;</span>}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testTimeMap</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>{<span style="color:#e6db74">&#34;aa&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;bb&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;cc&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;dd&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;ee&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;ff&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;zz&#34;</span>: <span style="color:#66d9ef">true</span>}
+
+<span style="color:#75715e">//以上为第一组查询测试数据
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testTimeSlice2</span>=[] <span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;bb&#34;</span>,<span style="color:#e6db74">&#34;cc&#34;</span>,<span style="color:#e6db74">&#34;dd&#34;</span>,<span style="color:#e6db74">&#34;ee&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;bb&#34;</span>,<span style="color:#e6db74">&#34;cc&#34;</span>,<span style="color:#e6db74">&#34;dd&#34;</span>,<span style="color:#e6db74">&#34;ee&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;bb&#34;</span>,<span style="color:#e6db74">&#34;cc&#34;</span>,<span style="color:#e6db74">&#34;dd&#34;</span>,<span style="color:#e6db74">&#34;ee&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;bb&#34;</span>,<span style="color:#e6db74">&#34;cc&#34;</span>,<span style="color:#e6db74">&#34;dd&#34;</span>,<span style="color:#e6db74">&#34;ee&#34;</span>,<span style="color:#e6db74">&#34;aa&#34;</span>,<span style="color:#e6db74">&#34;i&#34;</span>,<span style="color:#e6db74">&#34;j&#34;</span>, <span style="color:#e6db74">&#34;l&#34;</span>, <span style="color:#e6db74">&#34;m&#34;</span>, <span style="color:#e6db74">&#34;n&#34;</span>, <span style="color:#e6db74">&#34;o&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span>, <span style="color:#e6db74">&#34;q&#34;</span>, <span style="color:#e6db74">&#34;k&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>,
+    <span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;4&#34;</span>, <span style="color:#e6db74">&#34;5&#34;</span>, <span style="color:#e6db74">&#34;6&#34;</span>, <span style="color:#e6db74">&#34;7&#34;</span>, <span style="color:#e6db74">&#34;8&#34;</span>, <span style="color:#e6db74">&#34;9&#34;</span>, <span style="color:#e6db74">&#34;10&#34;</span>,<span style="color:#e6db74">&#34;zz&#34;</span>}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">testTimeMap2</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>{<span style="color:#e6db74">&#34;aa&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;bb&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;cc&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;dd&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;ee&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;ff&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;qq&#34;</span>: <span style="color:#66d9ef">true</span>,<span style="color:#e6db74">&#34;ww&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;rr&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;tt&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;zz&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;uu&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;ii&#34;</span>: <span style="color:#66d9ef">true</span>,<span style="color:#e6db74">&#34;oo&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;pp&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;lk&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;kl&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;jk&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;kj&#34;</span>: <span style="color:#66d9ef">true</span>,<span style="color:#e6db74">&#34;hl&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;lh&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;fg&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;gfdd&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;df&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;fd&#34;</span>: <span style="color:#66d9ef">true</span>,
+    <span style="color:#e6db74">&#34;i&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;j&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;l&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;m&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;n&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;o&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;p&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;q&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;k&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;x&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;y&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;z&#34;</span>: <span style="color:#66d9ef">true</span>,
+    <span style="color:#e6db74">&#34;1&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;2&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;3&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;4&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;5&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;6&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;7&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;8&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;9&#34;</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;10&#34;</span>: <span style="color:#66d9ef">true</span>}
+
+<span style="color:#75715e">//以上为第二组查询测试数据
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">testSlice</span>(<span style="color:#a6e22e">a</span> []<span style="color:#66d9ef">string</span>)  {
+    <span style="color:#a6e22e">now</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#ae81ff">100000</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>,<span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">a</span>{
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">==</span><span style="color:#e6db74">&#34;zz&#34;</span>{
+                <span style="color:#66d9ef">break</span>
+            }
+        }
+    }
+    <span style="color:#a6e22e">finish</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">now</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">finish1</span>)
+}
+
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">testMap</span>(<span style="color:#a6e22e">a</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>) {
+    <span style="color:#a6e22e">now</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#ae81ff">100000</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[<span style="color:#e6db74">&#34;zz&#34;</span>]; <span style="color:#a6e22e">ok</span> {
+            <span style="color:#66d9ef">continue</span>
+        }
+    }
+    <span style="color:#a6e22e">finish2</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">now</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&#34;</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">finish2</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&#34;</span>)
+}
+</code></pre></div><p>当用第一组测试数据时，结果如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ae81ff">1.0011</span><span style="color:#a6e22e">ms</span>   <span style="color:#75715e">//Slice查询耗时
+</span><span style="color:#75715e"></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<span style="color:#ae81ff">6.0038</span><span style="color:#a6e22e">ms</span>   <span style="color:#75715e">//Map查询耗时
+</span><span style="color:#75715e"></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</code></pre></div><p>用第二组测试数据时，结果如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ae81ff">8.0038</span><span style="color:#a6e22e">ms</span>    <span style="color:#75715e">//Slice查询耗时
+</span><span style="color:#75715e"></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<span style="color:#ae81ff">2.0019</span><span style="color:#a6e22e">ms</span>    <span style="color:#75715e">//Map查询耗时
+</span><span style="color:#75715e"></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</code></pre></div><p>现在可以得出结论了，当数据量小的时候，slice的查询速度是比map快的，为什么呢，因为golang的map底层是用hash实现的，既然有hash，那就要做映射，那就有hash函数，这个hash函数的开销千万不要忘记，不要一看到map就只记着O(1)</p>
+</div>
+  <footer class="post-footer">
+    
+  </footer>
+</article>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io/">tim</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>

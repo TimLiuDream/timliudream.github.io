@@ -6,7 +6,46 @@
     <description>Recent content on tim</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Sep 2020 21:39:11 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Sep 2020 17:45:03 +0800</lastBuildDate><atom:link href="https://timliudream.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>map的使用注意事项</title>
+      <link>https://timliudream.github.io/posts/golang/map/</link>
+      <pubDate>Sat, 26 Sep 2020 17:45:03 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/golang/map/</guid>
+      <description>map是无序的，每次打印出来的map都会不一样，它不能通过index获取，而必须通过key获取 map的长度是不固定的，也就是和slice一样，也是一种引用类型 内置的len函数同样适用于map，返回map拥有的key的数量 map的值可以很方便的修改，通过numbers[&amp;ldquo;one&amp;rdquo;]=11可以很容易的把key为one的字典值改为11 map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制  最后一点需要注意： 字典不是线程安全的，在多个线程操作字典的时候，需要使用到互斥锁
+判断map中是否含有某个key
+v,ok:=map[key] if ok{ ... } map的查询效率(时间复杂度)（需要很懂数据结构，暂不深究）
+golang中的map底层是hashMap数据结构，那么：
+ 插入:O(1)，最坏情况O(N)。 查看:O(1)，最坏情况O(N)。 删除:O(1)，最坏情况O(N)。  C++中的map采用的是红黑树实现，红黑树是平衡二叉树的一种。不同操作的时间复杂度近似为:
+ 插入: O(logN) 查看:O(logN) 删除:O(logN)  map与slice的速度比较
+map的时间复杂度是O(1)，slice的时间复杂度是O(n) 是不是map就一定比slice快呢？
+var testTimeSlice=[]string{&amp;#34;aa&amp;#34;,&amp;#34;bb&amp;#34;,&amp;#34;cc&amp;#34;,&amp;#34;dd&amp;#34;,&amp;#34;ee&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;zz&amp;#34;} var testTimeMap = map[string]bool{&amp;#34;aa&amp;#34;: true, &amp;#34;bb&amp;#34;: true, &amp;#34;cc&amp;#34;: true, &amp;#34;dd&amp;#34;: true, &amp;#34;ee&amp;#34;: true, &amp;#34;ff&amp;#34;: true, &amp;#34;zz&amp;#34;: true} //以上为第一组查询测试数据  var testTimeSlice2=[] string{&amp;#34;aa&amp;#34;,&amp;#34;bb&amp;#34;,&amp;#34;cc&amp;#34;,&amp;#34;dd&amp;#34;,&amp;#34;ee&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;bb&amp;#34;,&amp;#34;cc&amp;#34;,&amp;#34;dd&amp;#34;,&amp;#34;ee&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;bb&amp;#34;,&amp;#34;cc&amp;#34;,&amp;#34;dd&amp;#34;,&amp;#34;ee&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;bb&amp;#34;,&amp;#34;cc&amp;#34;,&amp;#34;dd&amp;#34;,&amp;#34;ee&amp;#34;,&amp;#34;aa&amp;#34;,&amp;#34;i&amp;#34;,&amp;#34;j&amp;#34;, &amp;#34;l&amp;#34;, &amp;#34;m&amp;#34;, &amp;#34;n&amp;#34;, &amp;#34;o&amp;#34;, &amp;#34;p&amp;#34;, &amp;#34;q&amp;#34;, &amp;#34;k&amp;#34;, &amp;#34;x&amp;#34;, &amp;#34;y&amp;#34;, &amp;#34;z&amp;#34;, &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;7&amp;#34;, &amp;#34;8&amp;#34;, &amp;#34;9&amp;#34;, &amp;#34;10&amp;#34;,&amp;#34;zz&amp;#34;} var testTimeMap2 = map[string]bool{&amp;#34;aa&amp;#34;: true, &amp;#34;bb&amp;#34;: true, &amp;#34;cc&amp;#34;: true, &amp;#34;dd&amp;#34;: true, &amp;#34;ee&amp;#34;: true, &amp;#34;ff&amp;#34;: true, &amp;#34;qq&amp;#34;: true,&amp;#34;ww&amp;#34;: true, &amp;#34;rr&amp;#34;: true, &amp;#34;tt&amp;#34;: true, &amp;#34;zz&amp;#34;: true, &amp;#34;uu&amp;#34;: true, &amp;#34;ii&amp;#34;: true,&amp;#34;oo&amp;#34;: true, &amp;#34;pp&amp;#34;: true, &amp;#34;lk&amp;#34;: true, &amp;#34;kl&amp;#34;: true, &amp;#34;jk&amp;#34;: true, &amp;#34;kj&amp;#34;: true,&amp;#34;hl&amp;#34;: true, &amp;#34;lh&amp;#34;: true, &amp;#34;fg&amp;#34;: true, &amp;#34;gfdd&amp;#34;: true, &amp;#34;df&amp;#34;: true, &amp;#34;fd&amp;#34;: true, &amp;#34;i&amp;#34;: true, &amp;#34;j&amp;#34;: true, &amp;#34;l&amp;#34;: true, &amp;#34;m&amp;#34;: true, &amp;#34;n&amp;#34;: true, &amp;#34;o&amp;#34;: true, &amp;#34;p&amp;#34;: true, &amp;#34;q&amp;#34;: true, &amp;#34;k&amp;#34;: true, &amp;#34;x&amp;#34;: true, &amp;#34;y&amp;#34;: true, &amp;#34;z&amp;#34;: true, &amp;#34;1&amp;#34;: true, &amp;#34;2&amp;#34;: true, &amp;#34;3&amp;#34;: true, &amp;#34;4&amp;#34;: true, &amp;#34;5&amp;#34;: true, &amp;#34;6&amp;#34;: true, &amp;#34;7&amp;#34;: true, &amp;#34;8&amp;#34;: true, &amp;#34;9&amp;#34;: true, &amp;#34;10&amp;#34;: true} //以上为第二组查询测试数据  func testSlice(a []string) { now:=time.</description>
+    </item>
+    
+    <item>
+      <title>golang类型判断</title>
+      <link>https://timliudream.github.io/posts/golang/type_judge/</link>
+      <pubDate>Sat, 26 Sep 2020 17:39:49 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/golang/type_judge/</guid>
+      <description>_.ok:=interface{}(a).(B) 此语句用于判断对象a是否是B类型
+也可以判断对象a是否实现了B接口
+package main import &amp;#34;fmt&amp;#34; type Pet interface { SetName(name string) Name()string Category()string } type Dog struct { name string } func (dog *Dog) SetName(name string) { dog.name = name } func(dog Dog) Name()string{ return dog.name } func (dog Dog)Category()string{ return &amp;#34;dog&amp;#34; } func main() { dog:=Dog{&amp;#34;little pig&amp;#34;} _,ok:=interface{}(dog).(Pet) fmt.Printf(&amp;#34;Dog implements interface Pet: %v\n&amp;#34;, ok) _, ok = interface{}(&amp;amp;dog).(Pet) fmt.Printf(&amp;#34;*Dog implements interface Pet: %v\n&amp;#34;, ok) fmt.Println() var pet Pet = &amp;amp;dog fmt.</description>
+    </item>
+    
+    <item>
+      <title>golang文件相对路径问题</title>
+      <link>https://timliudream.github.io/posts/golang/relative_path/</link>
+      <pubDate>Sat, 26 Sep 2020 17:34:48 +0800</pubDate>
+      
+      <guid>https://timliudream.github.io/posts/golang/relative_path/</guid>
+      <description>目录结构：
+--simple --data --data.json --search --feed.go 具体代码：
+const dataFile = &amp;#34;../data/data.json&amp;#34; _, filename, _, _ := runtime.Caller(1) datapath := path.Join(path.Dir(filename), dataFile) fmt.Println(datapath) //打开文件 file, err := os.Open(datapath) if err != nil { return nil, err } //当函数return时，关闭文件 defer file.Close() 如果不要中间获取源文件的路径：
+_, filename, _, _ := runtime.Caller(1) 直接打开文件的话，是会报错的，会报找不到的错误， 所以只能先获取当前源文件的路径再join数据文件</description>
+    </item>
+    
     <item>
       <title>golang中数组与切片的区别</title>
       <link>https://timliudream.github.io/posts/golang/array_compare_slice/</link>

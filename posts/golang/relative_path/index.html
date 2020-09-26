@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>golang文件相对路径问题 - tim</title>
+
+<meta name="description" content="目录结构：
+--simple --data --data.json --search --feed.go 具体代码：
+const dataFile = &#34;../data/data.json&#34; _, filename, _, _ := runtime.Caller(1) datapath := path.Join(path.Dir(filename), dataFile) fmt.Println(datapath) //打开文件 file, err := os.Open(datapath) if err != nil { return nil, err } //当函数return时，关闭文件 defer file.Close() 如果不要中间获取源文件的路径：
+_, filename, _, _ := runtime.Caller(1) 直接打开文件的话，是会报错的，会报找不到的错误， 所以只能先获取当前源文件的路径再join数据文件">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/golang/relative_path/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+</head>
+
+<body
+    class="single dark "
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
+    </nav>
+</header>
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      golang文件相对路径问题
+    </h1>
+    
+    <div class="post-meta">
+      <time>September 26, 2020</time>
+      
+       . 1min read
+    </div>
+    
+  </header>
+  
+  
+  <div class="post-content"><p><strong>目录结构：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">--</span><span style="color:#a6e22e">simple</span>
+    <span style="color:#f92672">--</span><span style="color:#a6e22e">data</span>
+          <span style="color:#f92672">--</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">json</span>
+    <span style="color:#f92672">--</span><span style="color:#a6e22e">search</span>
+          <span style="color:#f92672">--</span><span style="color:#a6e22e">feed</span>.<span style="color:#66d9ef">go</span>
+</code></pre></div><p>具体代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dataFile</span> = <span style="color:#e6db74">&#34;../data/data.json&#34;</span>
+<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Caller</span>(<span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">datapath</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Dir</span>(<span style="color:#a6e22e">filename</span>), <span style="color:#a6e22e">dataFile</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">datapath</span>)
+<span style="color:#75715e">//打开文件
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">datapath</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+}
+<span style="color:#75715e">//当函数return时，关闭文件
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+</code></pre></div><p>如果不要中间获取源文件的路径：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Caller</span>(<span style="color:#ae81ff">1</span>)
+</code></pre></div><p>直接打开文件的话，是会报错的，会报找不到的错误， 所以只能先获取当前源文件的路径再join数据文件</p>
+</div>
+  <footer class="post-footer">
+    
+  </footer>
+</article>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io/">tim</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>

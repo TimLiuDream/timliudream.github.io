@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>golang类型判断 - tim</title>
+
+<meta name="description" content="_.ok:=interface{}(a).(B) 此语句用于判断对象a是否是B类型
+也可以判断对象a是否实现了B接口
+package main import &#34;fmt&#34; type Pet interface { SetName(name string) Name()string Category()string } type Dog struct { name string } func (dog *Dog) SetName(name string) { dog.name = name } func(dog Dog) Name()string{ return dog.name } func (dog Dog)Category()string{ return &#34;dog&#34; } func main() { dog:=Dog{&#34;little pig&#34;} _,ok:=interface{}(dog).(Pet) fmt.Printf(&#34;Dog implements interface Pet: %v\n&#34;, ok) _, ok = interface{}(&amp;dog).(Pet) fmt.Printf(&#34;*Dog implements interface Pet: %v\n&#34;, ok) fmt.Println() var pet Pet = &amp;dog fmt.">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/golang/type_judge/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+</head>
+
+<body
+    class="single dark "
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
+    </nav>
+</header>
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      golang类型判断
+    </h1>
+    
+    <div class="post-meta">
+      <time>September 26, 2020</time>
+      
+       . 1min read
+    </div>
+    
+  </header>
+  
+  
+  <div class="post-content"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">_</span>.<span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">interface</span>{}(<span style="color:#a6e22e">a</span>).(<span style="color:#a6e22e">B</span>)
+</code></pre></div><p>此语句用于判断对象a是否是B类型</p>
+<p>也可以判断对象a是否实现了B接口</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Pet</span> <span style="color:#66d9ef">interface</span> {
+   <span style="color:#a6e22e">SetName</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>)
+   <span style="color:#a6e22e">Name</span>()<span style="color:#66d9ef">string</span>
+   <span style="color:#a6e22e">Category</span>()<span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Dog</span> <span style="color:#66d9ef">struct</span> {
+   <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">dog</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Dog</span>) <span style="color:#a6e22e">SetName</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) {
+   <span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">name</span> = <span style="color:#a6e22e">name</span>
+}
+
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">dog</span> <span style="color:#a6e22e">Dog</span>) <span style="color:#a6e22e">Name</span>()<span style="color:#66d9ef">string</span>{
+   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">name</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">dog</span> <span style="color:#a6e22e">Dog</span>)<span style="color:#a6e22e">Category</span>()<span style="color:#66d9ef">string</span>{
+   <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;dog&#34;</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+   <span style="color:#a6e22e">dog</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Dog</span>{<span style="color:#e6db74">&#34;little pig&#34;</span>}
+
+   <span style="color:#a6e22e">_</span>,<span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">interface</span>{}(<span style="color:#a6e22e">dog</span>).(<span style="color:#a6e22e">Pet</span>)
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Dog implements interface Pet: %v\n&#34;</span>, <span style="color:#a6e22e">ok</span>)
+   <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#66d9ef">interface</span>{}(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">dog</span>).(<span style="color:#a6e22e">Pet</span>)
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;*Dog implements interface Pet: %v\n&#34;</span>, <span style="color:#a6e22e">ok</span>)
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+
+   <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pet</span> <span style="color:#a6e22e">Pet</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">dog</span>
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;This pet is a %s, the name is %q.\n&#34;</span>,
+      <span style="color:#a6e22e">pet</span>.<span style="color:#a6e22e">Category</span>(), <span style="color:#a6e22e">pet</span>.<span style="color:#a6e22e">Name</span>())
+}
+
+</code></pre></div><p>输出为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Dog</span> <span style="color:#a6e22e">implements</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Pet</span>: <span style="color:#66d9ef">false</span>
+<span style="color:#f92672">*</span><span style="color:#a6e22e">Dog</span> <span style="color:#a6e22e">implements</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Pet</span>: <span style="color:#66d9ef">true</span>
+
+<span style="color:#a6e22e">This</span> <span style="color:#a6e22e">pet</span> <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">dog</span>, <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">name</span> <span style="color:#a6e22e">is</span> <span style="color:#e6db74">&#34;little pig&#34;</span>.
+</code></pre></div><p>一个指针类型实现了某某接口类型，但它的基本类型却不一定能够作为该接口的实现类型。</p>
+<p>怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？
+这有两个充分必要条件，一个是“两个方法的签名需要完全一致”，另一个是“两个方法的名称要一模一样”。显然，这比判断一个函数是否实现了某个函数类型要更加严格一些。</p>
+<p>这就意味着，Dog类型本身的方法集合中只包含了 2 个方法， 也就是所有的值方法。而它的指针类型*Dog方法集合却包含了 3 个方法</p>
+</div>
+  <footer class="post-footer">
+    
+  </footer>
+</article>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io/">tim</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Posts - tim</title>
+
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="https://timliudream.github.io/posts/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://timliudream.github.io/css/stylesheet.min.b760220717cab18f5ad50547f90cca998a768de2def38cc7547d38fe469c80e0.css" integrity="sha256-t2AiBxfKsY9a1QVH&#43;QzKmYp2jeLe84zHVH04/kacgOA=" rel="preload stylesheet"
+    as="style">
+
+
+<link rel="apple-touch-icon" href="https://timliudream.github.io/apple-touch-icon.png">
+<link rel="icon" href="https://timliudream.github.io/favicon.ico">
+<meta name="generator" content="Hugo 0.75.1" />
+
+<link rel="alternate" type="application/rss+xml" href="https://timliudream.github.io/posts/index.xml" title="tim" />
+
+</head>
+
+<body
+    class="list dark "
+    id="top">
+<header class="header">
+    <nav class="nav">
+        <p class="logo"><a href="https://timliudream.github.io/">tim</a></p>
+    </nav>
+</header>
+    <main class="main">
+
+ 
+<header class="page-header">
+  <h1>Posts</h1>
+</header>
+
+
+
+
+
+
+
+
+<article class="post-entry">
+  
+  <header class="entry-header">
+    <h2>
+      在Windows10系统下通过hugo搭建个人博客
+    </h2>
+  </header>
+  
+  <section class="entry-content">
+    <p>在hugo官网上下载安装包，选择windows版本
+  将hugo的安装包解压后，将解压后的路径加入到系统的环境变量PATH中便可运行hugo
+  打开命令提示符窗口，进入hugo安装文件夹，然后通过hugo version便可查看安装的hugo版本，即hugo安装成功
+  通过hugo新建一个文件夹来存放我们之后要放的博客资料，此处在E盘的hugo文件中来新建myblog文件来存放博客资料;进入E:\hugo目录，键入hugo new site myblog来创建myblog文件，点击回车   下载一个博客主题，选择一个自己喜欢的主题点击进入，然后找到如下代码部分
+  假设我选择了noteworthy这个主题，只需要在myblog下执行以下命令即可
+  git clone https://github.com/kimcc/hugo-theme-noteworthy.git themes/noteworthy 在本地启动个人博客：在myblog根目录下键入hugo server -t noteworthy –buildDrafts：(其中noteworthy为下载的主题名)  hugo server -t noteworthy --buildDrafts 当出现以上提示，则证明本地启动成功。可以在浏览器中查看http://localhost:1313/，看站点是否起来...</p>
+  </section>
+  
+  <footer class="entry-footer">
+    <time>September 20, 2020</time>
+     .
+    1min read
+    
+  </footer>
+  <a class="entry-link" aria-label="post link to 在Windows10系统下通过hugo搭建个人博客" href="https://timliudream.github.io/posts/hugo/hugo_blog/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/posts/">« Prev Page</a>
+  </nav>
+</footer>
+
+
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://timliudream.github.io/">tim</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener"
+            target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://timliudream.github.io/js/highlight.min.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    
+    hljs.initHighlightingOnLoad();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+</body>
+
+</html>
